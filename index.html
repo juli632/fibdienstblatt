@@ -1,41 +1,18 @@
-<html>
-<head>
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <script> scr="script.js"></script>
-    <meta charset="utf-8">
-    <title>FIB a Dienstblatt</title>
-</head>
-<body>
-<!--NavBar-->
-<header>
-    <div class="container">
-        <img src="assets/logo.png" alt="FIB" width="42" height="42" class="logo">
-        <nav>
-            <ul>
-                <li><a href="/index.html">Diestblatt</a></li>
-                <li><a href="/akten.html">Akten</a></li>
-                <li><a href="/dealer.html">Dealer</a></li>
-                <li><a href="/criminal.html">Criminal Investigation</a></li>
-                <li><a href="/test.html">Akten Test</a></li>
-                <li><a href="/dbtest.php">TestDB</a></li>
-                <li><a href="/NewTest.html">NewTest</a></li>
-                <li><a href="https://discord.gg/nDhYdqm">Discord</a></li>
-            </ul>
-        </nav>
-    </div>
-    <!--NavBar-->
-    <!--Datum-->
-    <p> <span id="datetime"></span></p>
-    <script>
-var dt = new Date();
-document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
-</script>
-    <!--Datum-->
-    <!--Wichtige Ankündigungen-->
-</header>
-<marquee behavior="scroll" bgcolor="#666666" loop="-1" width="100%">
-    <i><font color="red"><strong> </strong> Rafft euch mit den SAD Namen! Keine Werbung und nach dem Einsatz wegmachen! </font></i>
-</marquee>
-<!--Wichtige Ankündigungen-->
-</body>
-</html>
+<?php
+    $db = new mysqli('localhost', 'admin1', 'Fettmac1511', 'dienstblatt');
+        if (mysqli_connect_errno()) {
+        die ('Konnte keine Verbindung zur Datenbank aufbauen:
+        '.mysqli_connect_error().'('.mysqli_connect_errno().')');
+        }
+
+    $sql = 'SELECT mitarbeiterid, dn, name FROM mitarbeiter';
+    $erg = $db->query($sql);
+if (!$erg){
+die ('Etwas stimmte mit dem Query nicht: '.$db->error);
+}
+echo 'Die Tabelle besitzt '.$erg->num_rows." Datensätze<br />\n";
+while ($row = $erg->fetch_assoc()) {
+
+echo '"'.$row['mitarbeiterid'].'" "'.$row['name'].'"  "'.$row['dn']."\"<br />\n";
+}
+?>
